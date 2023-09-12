@@ -31,6 +31,17 @@ public interface JpaConst {
     int EMP_DEL_TRUE=1;//削除フラグON(削除済み)
     int EMP_DEL_FALSE=0;//削除フラグOFF(現役)
 
+    //ドライバーテーブル
+    String TABLE_DRI="drivers";
+    //ドライバーテーブルカラム
+    String DRI_COL_ID="id";//ID
+    String DRI_COL_NAME="name";//氏名
+    String DRI_COL_TEL="tel";//電話番号
+    String DRI_COL_TEXT="text";//テキスト
+    String DRI_COL_CREATED_AT="created_at";//登録日
+    String DRI_COL_UPDATED_AT="updated_at";//更新日時
+
+
     //運行管理テーブル
     String TABLE_MAN="manegements";//テーブル名
     //運行管理テーブルカラム
@@ -69,22 +80,12 @@ public interface JpaConst {
     //指定した社員番号を保持する従業員の件数を取得する
     String Q_EMP_COUNT_REGISTERED_BY_CODE = ENTITY_EMP + ".countRegisteredByCode";
     String Q_EMP_COUNT_REGISTERED_BY_CODE_DEF = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :" + JPQL_PARM_CODE;
-    //全ての日報をidの降順に取得する
-    String Q_REP_GET_ALL = ENTITY_DRI + ".getAll";
-    String Q_REP_GET_ALL_DEF = "SELECT d FROM Report AS d ORDER BY d.id DESC";
-    //全ての日報の件数を取得する
-    String Q_REP_COUNT = ENTITY_DRI + ".count";
-    String Q_REP_COUNT_DEF = "SELECT COUNT(d) FROM Report AS d";
-    //指定した従業員が作成した日報を全件idの降順で取得する
-    String Q_REP_GET_ALL_MINE = ENTITY_DRI + ".getAllMine";
-    String Q_REP_GET_ALL_MINE_DEF = "SELECT d FROM Report AS d WHERE d.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY d.id DESC";
-    //指定した従業員が作成した日報の件数を取得する
-    String Q_REP_COUNT_ALL_MINE = ENTITY_DRI + ".countAllMine";
-    String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(d) FROM Report AS d WHERE d.employee = :" + JPQL_PARM_EMPLOYEE;
-    //指定した従業員が作成した指定した日時のものを取得する
-    String Q_REP_COL_SPECIFIED_CREATED_AT = ENTITY_DRI + ".specifiedCreatedAt";
-    String Q_REP_COL_SPECIFIED_CREATED_AT_DEF = "SELECT d FROM Report AS d WHERE d.employee = :" + JPQL_PARM_EMPLOYEE + " AND d.reportDate = :" + JPQL_PARM_REPDATE;
-
+    //全てのドライバーをidの降順に取得する
+    String Q_DRI_GET_ALL=ENTITY_DRI+".getAll";//name
+    String Q_DRI_GET_ALL_DEF="SELECT d FROM Driver AS d ORDER BY d.id DESC";//query
+    //全てのドライバーの件数を取得する
+    String Q_DRI_COUNT=ENTITY_DRI+".count";
+    String Q_DRI_COUNT_DEF="SELECT COUNT(d) FROM Driver AS d";
 
 
 }
