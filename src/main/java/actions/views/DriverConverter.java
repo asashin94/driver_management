@@ -3,6 +3,8 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import constants.AttributeConst;
+import constants.JpaConst;
 import models.Driver;
 
 /**
@@ -24,7 +26,12 @@ public class DriverConverter {
                 dv.getTel(),
                 dv.getText(),
                 dv.getCreatedAt(),
-                dv.getUpdatedAt());
+                dv.getUpdatedAt(),
+                dv.getDeleteFlag() == null
+                ? null
+                : dv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                        ? JpaConst.DRI_DEL_TRUE
+                        : JpaConst.DRI_DEL_FALSE);
     }
 
     /**
@@ -43,7 +50,12 @@ public class DriverConverter {
                 d.getTel(),
                 d.getText(),
                 d.getCreatedAt(),
-                d.getUpdatedAt());
+                d.getUpdatedAt(),
+                d.getDeleteFlag() == null
+                ? null
+                : d.getDeleteFlag() == JpaConst.EMP_DEL_TRUE
+                        ? AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                        : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
     }
 
     /**
@@ -73,6 +85,7 @@ public class DriverConverter {
         d.setText(dv.getText());
         d.setCreatedAt(dv.getCreatedAt());
         d.setUpdatedAt(dv.getUpdatedAt());
+        d.setDeleteFlag(dv.getDeleteFlag());
     }
 
 }

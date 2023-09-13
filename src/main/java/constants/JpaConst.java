@@ -40,6 +40,10 @@ public interface JpaConst {
     String DRI_COL_TEXT="text";//テキスト
     String DRI_COL_CREATED_AT="created_at";//登録日
     String DRI_COL_UPDATED_AT="updated_at";//更新日時
+    String DRI_COL_DELETE_FLAG="delete_flag";//削除フラグ
+
+    int DRI_DEL_TRUE=1;//削除フラグON(削除済み)
+    int DRI_DEL_FALSE=0;//削除フラグOFF(現役)
 
 
     //運行管理テーブル
