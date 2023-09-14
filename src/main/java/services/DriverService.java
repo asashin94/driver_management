@@ -83,6 +83,7 @@ public class DriverService extends ServiceBase {
 
         savedDri.setName(dv.getName());
         savedDri.setTel(dv.getTel());
+        savedDri.setText(dv.getText());
 
         //更新日時に現在時刻を設定する
         LocalDateTime today = LocalDateTime.now();
@@ -114,10 +115,10 @@ public class DriverService extends ServiceBase {
         savedDri.setUpdatedAt(today);
 
         //論理削除フラグをたてる
-        savedDri.setDeleteFlag(JpaConst.EMP_DEL_TRUE);
+        savedDri.setDeleteFlag(JpaConst.DRI_DEL_TRUE);
 
         //更新処理を行う
-        update(savedDri);
+        updateOnly(savedDri);
 
     }
 

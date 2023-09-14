@@ -212,5 +212,26 @@ public class DriverAction  extends ActionBase{
         }
     }
 
+    /**
+     * 論理削除を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) {
+
+            //idを条件にドライバーデータを論理削除する
+            service.destroy(toNumber(getRequestParam(AttributeConst.DRI_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_DRI, ForwardConst.CMD_INDEX);
+        }
+    }
+
 
 }
