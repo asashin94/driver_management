@@ -9,6 +9,7 @@ import actions.views.DriverView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
+import constants.MessageConst;
 import services.DriverService;
 
 public class DriverAction  extends ActionBase{
@@ -44,7 +45,7 @@ public class DriverAction  extends ActionBase{
         long driverCount = service.countAll();
 
         putRequestScope(AttributeConst.DRIVERS,drivers);//取得したドライバーデータ
-        putRequestScope(AttributeConst.DRIVER_COUNT,driverCount);//全てのドライバーデータの件数
+        putRequestScope(AttributeConst.DRI_COUNT,driverCount);//全てのドライバーデータの件数
         putRequestScope(AttributeConst.PAGE,page);//ページ数
         putRequestScope(AttributeConst.MAX_ROW,JpaConst.ROW_PER_PAGE);//1ページに表示するレコードの数
 
@@ -57,6 +58,67 @@ public class DriverAction  extends ActionBase{
 
         //一覧画面を表示
         forward(ForwardConst.FW_DRI_INDEX);
+    }
+
+    /**
+     * 新規登録画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void entryNew() throws ServletException, IOException {
+
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+        putRequestScope(AttributeConst.DRIVER, new DriverView()); //空のドライバーインスタンス
+
+        //新規登録画面を表示
+        forward(ForwardConst.FW_DRI_NEW);
+    }
+
+    /**
+     * 新規登録を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void create() throws ServletException, IOException {
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) {
+
+            //パラメータの値を元に従業員情報のインスタンスを作成する
+            DriverView dv = new DriverView(
+                    null,
+                    getRequestParam(AttributeConst.DRI_NAME),
+                    getRequestParam(AttributeConst.DRI_TEL),
+                    getRequestParam(AttributeConst.DRI_TEXT),
+                    null,
+                    null,
+                    AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+
+
+            //従業員情報登録
+            List<String> errors = service.create(dv);
+
+            if (errors.size() > 0) {
+                //登録中にエラーがあった場合
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.EMPLOYEE, dv); //入力された従業員情報
+                putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+
+                //新規登録画面を再表示
+                forward(ForwardConst.FW_EMP_NEW);
+
+            } else {
+                //登録中にエラーがなかった場合
+
+                //セッションに登録完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_DRI, ForwardConst.CMD_INDEX);
+            }
+
+        }
     }
 
 

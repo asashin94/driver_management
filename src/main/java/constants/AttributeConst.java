@@ -36,10 +36,11 @@ public enum AttributeConst {
     //ドライバー管理
     DRIVER("driver"),
     DRIVERS("drivers"),
-    DRIVER_COUNT("driver_count"),
-    DRIVER_ID("id"),
-    DRIVER_NAME("name"),
-    DRIVER_TEL("tel"),
+    DRI_COUNT("driver_count"),
+    DRI_ID("id"),
+    DRI_NAME("name"),
+    DRI_TEL("tel"),
+    DRI_TEXT("text"),
 
     //管理者フラグ
     ROLE_ADMIN(1),

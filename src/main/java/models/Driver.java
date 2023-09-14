@@ -55,8 +55,8 @@ public class Driver {
     /**
      * 電話番号
      */
-    @Column(name = JpaConst.DRI_COL_TEL, length = 11, nullable = false)
-    private Integer tel;
+    @Column(name = JpaConst.DRI_COL_TEL, nullable = false)
+    private String tel;
 
     /**
      * テキスト

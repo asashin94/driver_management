@@ -58,7 +58,7 @@ public class DriverValidator {
      * @param tel 電話番号
      * @return エラーメッセージ
      */
-    private static String validateTel(Integer tel) {
+    private static String validateTel(String tel) {
         if (tel == null || tel.equals("")) {
             return MessageConst.E_NOTEL.getMessage();
         }

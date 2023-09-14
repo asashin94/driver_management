@@ -3,7 +3,7 @@
 <%@ page import="constants.AttributeConst" %>
 <%@ page import="constants.ForwardConst" %>
 
-<c:set var="actEmp" value="${ForwardConst.ACT_DRI.getValue()}" />
+<c:set var="actDri" value="${ForwardConst.ACT_DRI.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -21,15 +21,18 @@
                 <tr>
                     <th>ドライバー名</th>
                     <th>電話番号</th>
+                    <th>テキスト</th>
                     <th>操作</th>
                 </tr>
                 <c:forEach var="driver" items="${drivers}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${driver.name}" /></td>
-                        <td><c:out value="${employee.tel}" /></td>
+                        <td><c:out value="${driver.tel}" /></td>
+                        <td><c:out value="${driver.text}" /></td>
+
                         <td>
                             <c:choose>
-                                <c:when test="${employee.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
+                                <c:when test="${driver.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
                                     （削除済み）
                                 </c:when>
                                 <c:otherwise>

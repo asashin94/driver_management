@@ -31,7 +31,7 @@ public class DriverView {
     /**
      * 電話番号
      */
-    private Integer tel;
+    private String tel;
 
     /**
      * テキスト

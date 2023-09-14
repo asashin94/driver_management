@@ -65,7 +65,7 @@ public class DriverService extends ServiceBase {
 
         //バリデーションエラーがなければデータを登録する
         if (errors.size() == 0) {
-                create(dv);
+                createOnly(dv);
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
@@ -93,7 +93,7 @@ public class DriverService extends ServiceBase {
 
       //バリデーションエラーがなければデータを更新する
         if (errors.size() == 0) {
-            update(savedDri);
+            updateOnly(savedDri);
         }
 
       //エラーを返却（エラーがなければ0件の空リスト）
