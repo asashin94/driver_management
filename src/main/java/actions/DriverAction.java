@@ -169,5 +169,48 @@ public class DriverAction  extends ActionBase{
 
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) {
+            //パラメータの値を元にドライバー情報のインスタンスを作成する
+            DriverView dv = new DriverView(
+                    toNumber(getRequestParam(AttributeConst.DRI_ID)),
+                    getRequestParam(AttributeConst.DRI_NAME),
+                    getRequestParam(AttributeConst.DRI_TEL),
+                    getRequestParam(AttributeConst.DRI_TEXT),
+                    null,
+                    null,
+                    AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+
+            //ドライバー情報更新
+            List<String> errors = service.update(dv);
+
+            if (errors.size() > 0) {
+                //更新中にエラーが発生した場合
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.DRIVER, dv); //入力されたドライバー情報
+                putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+
+                //編集画面を再表示
+                forward(ForwardConst.FW_DRI_EDIT);
+            } else {
+                //更新中にエラーがなかった場合
+
+                //セッションに更新完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_DRI, ForwardConst.CMD_INDEX);
+            }
+        }
+    }
+
 
 }
