@@ -25,7 +25,7 @@
 <br /><br />
 
 <label for="${AttributeConst.DRI_TEXT.getValue()}">テキスト</label><br />
-<input type="text" name="${AttributeConst.DRI_TEXT.getValue()}" id="${AttributeConst.DRI_TEXT.getValue()}" />
+<input type="text" name="${AttributeConst.DRI_TEXT.getValue()}" id="${AttributeConst.DRI_TEXT.getValue()}" value="${driver.text}"/>
 <br /><br />
 
 <br /><br />
