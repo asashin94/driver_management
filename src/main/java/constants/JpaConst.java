@@ -92,7 +92,7 @@ public interface JpaConst {
     String Q_DRI_COUNT_DEF="SELECT COUNT(d) FROM Driver AS d";
     //全ての運行管理予定をidの降順に取得する
     String Q_MAN_GET_ALL=ENTITY_MAN + "getAll";
-    String Q_MAN_GET_ALL_DEF="SELECT m FROM Driver AS m ORDER BY m.id DESC";//query
+    String Q_MAN_GET_ALL_DEF="SELECT m FROM Management AS m ORDER BY m.id DESC";//query
     //全ての運行管理の件数を取得する
     String Q_MAN_COUNT=ENTITY_MAN+".count";
     String Q_MAN_COUNT_DEF="SELECT COUNT(m) FROM Management AS m";

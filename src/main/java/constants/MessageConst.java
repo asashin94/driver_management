@@ -28,7 +28,8 @@ public enum MessageConst {
     E_FAST("到着時間が出発時間より早いです"),
     E_NOGOAT("出発時間を入力してください"),
     E_NOARRIVEAT("到着時間を入力してください"),
-    E_NOBACKAT("戻り時間を入力してください");
+    E_NOBACKAT("戻り時間を入力してください"),
+    E_SLOW("出発時間が到着時間より遅いです");
 
 
     /**
