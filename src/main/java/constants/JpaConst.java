@@ -51,13 +51,13 @@ public interface JpaConst {
     //運行管理テーブルカラム
     String MAN_COL_ID="id";//id
     String MAN_COL_EMP="employee_id";//日報を作成した従業員のid
-    String MAN_COL_CREATED_AT="created_at";//登録日時
-    String MAN_COL_UPDATED_AT="updated_at";//更新日時
     String MAN_COL_DRI="driver";//担当ドライバー
     String MAN_COL_PLACE="place";//目的地
     String MAN_COL_GO_AT="go_at";//出発時間
     String MAN_COL_ARRIVE_AT="arrive_at";//到着時間
     String MAN_COL_BACK_AT="back_at";//戻り時間
+    String MAN_COL_CREATED_AT="created_at";//登録日時
+    String MAN_COL_UPDATED_AT="updated_at";//更新日時
     String MAN_COL_EMP_FINAL="employee_final";//最終編集者
 
     //Entity名
@@ -69,7 +69,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE="code";//社員番号
     String JPQL_PARM_PASSWORD="password";//パスワード
     String JPQL_PARM_EMPLOYEE="employee";//従業員
-    String JPQL_PARM_REPDATE="reportDate";
+    String JPQL_PARAM_MANAGEMENT="management";//運行管理
 
     //NamedQueryのnameとquery
     //全ての従業員をidの降順に取得する
@@ -90,6 +90,13 @@ public interface JpaConst {
     //全てのドライバーの件数を取得する
     String Q_DRI_COUNT=ENTITY_DRI+".count";
     String Q_DRI_COUNT_DEF="SELECT COUNT(d) FROM Driver AS d";
+    //全ての運行管理予定をidの降順に取得する
+    String Q_MAN_GET_ALL=ENTITY_MAN + "getAll";
+    String Q_MAN_GET_ALL_DEF="SELECT m FROM Driver AS m ORDER BY m.id DESC";//query
+    //全ての運行管理の件数を取得する
+    String Q_MAN_COUNT=ENTITY_MAN+".count";
+    String Q_MAN_COUNT_DEF="SELECT COUNT(m) FROM Management AS m";
+
 
 
 }
