@@ -28,7 +28,7 @@ import lombok.Setter;
 @NamedQueries({
     @NamedQuery(
             name = JpaConst.Q_MAN_GET_ALL,
-            query = JpaConst.Q_MAN_COUNT_DEF),
+            query = JpaConst.Q_MAN_GET_ALL_DEF),
     @NamedQuery(
             name = JpaConst.Q_MAN_COUNT,
             query = JpaConst.Q_MAN_COUNT_DEF)
@@ -105,7 +105,8 @@ public class Management {
     /**
      * 最終編集者
      */
-    @Column(name = JpaConst.MAN_COL_EMP_FINAL,nullable=false)
+    @ManyToOne
+    @JoinColumn(name = JpaConst.MAN_COL_EMP_FINAL,nullable=false)
     private Employee employee_final;
 
 

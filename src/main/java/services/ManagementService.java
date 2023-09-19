@@ -17,7 +17,7 @@ public class ManagementService extends ServiceBase {
      * @return 一覧画面に表示するデータのリスト
      */
     public List<ManagementView> getPerPage(int page){
-        List<Management> managements = em.createNamedQuery(JpaConst.Q_DRI_GET_ALL,Management.class)
+        List<Management> managements = em.createNamedQuery(JpaConst.Q_MAN_GET_ALL,Management.class)
                                        .setFirstResult(JpaConst.ROW_PER_PAGE*(page - 1 ))
                                        .setMaxResults(JpaConst.ROW_PER_PAGE)
                                        .getResultList();
@@ -28,8 +28,8 @@ public class ManagementService extends ServiceBase {
      * 作成した運行管理データの件数を取得し、返却する
      * @return 運行管理データの件数
      */
-    long countAll() {
-        long management_count = (long)em.createNamedQuery(JpaConst.Q_DRI_COUNT,Long.class)
+    public long countAll() {
+        long management_count = (long)em.createNamedQuery(JpaConst.Q_MAN_COUNT,Long.class)
                                 .getSingleResult();
         return management_count;
     }
