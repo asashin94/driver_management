@@ -31,7 +31,10 @@ import lombok.Setter;
             query = JpaConst.Q_MAN_GET_ALL_DEF),
     @NamedQuery(
             name = JpaConst.Q_MAN_COUNT,
-            query = JpaConst.Q_MAN_COUNT_DEF)
+            query = JpaConst.Q_MAN_COUNT_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_MAN_GET_DRIVER_ALL,
+            query = JpaConst.Q_MAN_GET_DRIVER_ALL_DEF)
 
 })
 

@@ -61,4 +61,23 @@ public class ManagementAction extends ActionBase{
         forward(ForwardConst.FW_MAN_INDEX);
     }
 
+    /**
+     * 新規登録画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void entryNew() throws ServletException, IOException {
+
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+
+        //日報情報の空インスタンスに、日報の日付＝今日の日付を設定する
+        ManagementView mv = new ManagementView();
+        putRequestScope(AttributeConst.MANAGEMENT, mv); //日付のみ設定済みの日報インスタンス
+        List<String> driverNames = service.driverNames();
+        putRequestScope(AttributeConst.DRIVERS,driverNames);
+        //新規登録画面を表示
+        forward(ForwardConst.FW_MAN_NEW);
+
+    }
+
 }

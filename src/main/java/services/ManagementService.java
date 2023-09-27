@@ -3,6 +3,8 @@ package services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import actions.views.EmployeeView;
 import actions.views.ManagementConverter;
 import actions.views.ManagementView;
@@ -106,5 +108,14 @@ public class ManagementService extends ServiceBase {
         ManagementConverter.copyViewToModel(m, mv);
         em.getTransaction().commit();
 
+    }
+
+    /**
+     * ドライバー名一覧を取得する
+     *
+     */
+    public List<String> driverNames(){
+        TypedQuery<String>driverNames= em.createNamedQuery(JpaConst.Q_MAN_GET_DRIVER_ALL, String.class);
+        return driverNames.getResultList();
     }
 }

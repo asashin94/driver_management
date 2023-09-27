@@ -96,7 +96,9 @@ public interface JpaConst {
     //全ての運行管理の件数を取得する
     String Q_MAN_COUNT=ENTITY_MAN+".count";
     String Q_MAN_COUNT_DEF="SELECT COUNT(m) FROM Management AS m";
-
+    //全てのドライバー名を取得する
+    String Q_MAN_GET_DRIVER_ALL=ENTITY_MAN +"getDriverAll";
+    String Q_MAN_GET_DRIVER_ALL_DEF="SELECT d.name FROM Driver as d ORDER BY d.id DESC";
 
 
 }
