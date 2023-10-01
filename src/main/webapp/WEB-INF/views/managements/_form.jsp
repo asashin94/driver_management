@@ -29,19 +29,19 @@
 <input type="text"  name="${AttributeConst.MAN_PLACE.getValue()}" id="${AttributeConst.MAN_PLACE.getValue()}" />
 <br /><br />
 
-<fmt:parseDate value="${managemanet.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
+<fmt:parseDate value="${managemenet.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
 <label for="${AttributeConst.MAN_GO.getValue()}">出発時間</label><br />
-<input type="date" name="${AttributeConst.MAN_GO.getValue()}" id="${AttributeConst.MAN_GO.getValue()}" value="<fmt:formatDate value='${goAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
+<input type="datetime-local" name="${AttributeConst.MAN_GO.getValue()}" id="${AttributeConst.MAN_GO.getValue()}" value="<fmt:formatDate value='${goAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />
 
-<fmt:parseDate value="${managemanet.arriveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
+<fmt:parseDate value="${managemenet.arriveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="arriveAt" type="date"/>
 <label for="${AttributeConst.MAN_ARRIVE.getValue()}">到着時間</label><br />
-<input type="date" name="${AttributeConst.MAN_ARRIVE.getValue()}" id="${AttributeConst.MAN_ARRIVE.getValue()}" value="<fmt:formatDate value='${arriveAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
+<input type="datetime-local" name="${AttributeConst.MAN_ARRIVE.getValue()}" id="${AttributeConst.MAN_ARRIVE.getValue()}" value="<fmt:formatDate value='${arriveAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />
 
-<fmt:parseDate value="${managemanet.backAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
+<fmt:parseDate value="${managemenet.backAt}" pattern="yyyy-MM-dd'T'HH:mm" var="backAt" type="date"/>
 <label for="${AttributeConst.MAN_BACK.getValue()}">戻り時間</label><br />
-<input type="date" name="${AttributeConst.MAN_BACK.getValue()}" id="${AttributeConst.MAN_BACK.getValue()}" value="<fmt:formatDate value='${backAt}' pattern='yyyy-MM-dd\'T\'HH:mm:ss' />" />
+<input type="datetime-local" name="${AttributeConst.MAN_BACK.getValue()}" id="${AttributeConst.MAN_BACK.getValue()}" value="<fmt:formatDate value='${backAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />
 
 <br /><br />

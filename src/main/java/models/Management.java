@@ -65,9 +65,8 @@ public class Management {
      * 担当ドライバー
      */
 
-    @ManyToOne
-    @JoinColumn(name = JpaConst.MAN_COL_DRI,nullable=false)
-    private Driver driver;
+    @Column(name = JpaConst.MAN_COL_DRI,nullable=false)
+    private String driver;
 
     /**
      * 目的地

@@ -26,10 +26,14 @@ public enum MessageConst {
     E_NOCONTENT("内容を入力してください。"),
     E_SAMEDATE("同じ日付で登録されています"),
     E_FAST("到着時間が出発時間より早いです"),
+    E_NODRIVER("ドライバーを選択してください"),
     E_NOGOAT("出発時間を入力してください"),
     E_NOARRIVEAT("到着時間を入力してください"),
     E_NOBACKAT("戻り時間を入力してください"),
-    E_SLOW("出発時間が到着時間より遅いです");
+    E_SLOW_GO("出発時間が到着時間より遅いです"),
+    E_SLOW_ARRIVE("到着時間が戻り時間より遅いです"),
+    E_SLOW_GO_BACK("出発時間が戻り時間より遅いです"),
+    E_SAME_TIME("同じ時間が入力されています");
 
 
     /**

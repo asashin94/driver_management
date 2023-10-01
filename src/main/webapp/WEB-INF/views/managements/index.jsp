@@ -27,12 +27,15 @@
                     <th class="management_action">操作</th>
                 </tr>
                 <c:forEach var="management" items="${managements}" varStatus="status">
-
+                    <fmt:parseDate value="${management.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="managementGo" type="date" />
+                    <fmt:parseDate value="${management.arriveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="managementArrirve" type="date" />
+                    <fmt:parseDate value="${management.backAt}" pattern="yyyy-MM-dd'T'HH:mm" var="managementBack" type="date" />
                     <tr class="row${status.count % 2}">
-                        <td class="management_place"><c:out value="${management.driver}" /></td>
-                        <td class="management_go"><fmt:formatDate value='${goAt}' pattern='yyyy/MM/dd HH:mm:ss' /></td>
-                        <td class="management_arrive"><fmt:formatDate value='${arriveAt}' pattern='yyyy/MM/dd HH:mm:ss' /></td>
-                        <td class="management_back"><fmt:formatDate value='${backAt}' pattern='yyyy/MM/dd HH:mm:ss' /></td>
+                        <td class="management_place"><c:out value="${management.place}" /></td>
+                        <td class="management_driver"><c:out value="${management.driver }" /></td>
+                        <td class="management_go"><fmt:formatDate value='${managementGo}' pattern='yyyy/MM/dd HH:mm' /></td>
+                        <td class="management_arrive"><fmt:formatDate value='${managementArrirve}' pattern='yyyy/MM/dd HH:mm' /></td>
+                        <td class="management_back"><fmt:formatDate value='${managementBack}' pattern='yyyy/MM/dd HH:mm' /></td>
                         <td class="management_action"><a href="<c:url value='?action=${actMan}&command=${commShow}&id=${management.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>

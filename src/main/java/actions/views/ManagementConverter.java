@@ -20,7 +20,7 @@ public class ManagementConverter {
         return new Management(
                 mv.getId(),
                 EmployeeConverter.toModel(mv.getEmployee()),
-                DriverConverter.toModel(mv.getDriver()),
+                mv.getDriver(),
                 mv.getPlace(),
                 mv.getGoAt(),
                 mv.getArriveAt(),
@@ -44,7 +44,7 @@ public class ManagementConverter {
         return new ManagementView(
                 m.getId(),
                 EmployeeConverter.toView(m.getEmployee()),
-                DriverConverter.toView(m.getDriver()),
+                m.getDriver(),
                 m.getPlace(),
                 m.getGoAt(),
                 m.getArriveAt(),
@@ -76,7 +76,7 @@ public class ManagementConverter {
     public static void copyViewToModel(Management m,ManagementView mv) {
         m.setId(mv.getId());
         m.setEmployee(EmployeeConverter.toModel(mv.getEmployee()));
-        m.setDriver(DriverConverter.toModel(mv.getDriver()));
+        m.setDriver(mv.getDriver());
         m.setPlace(mv.getPlace());
         m.setGoAt(mv.getGoAt());
         m.setArriveAt(mv.getArriveAt());

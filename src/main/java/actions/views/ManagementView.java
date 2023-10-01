@@ -26,7 +26,7 @@ public class ManagementView {
     /**
      * 担当ドライバー
      */
-    private DriverView driver;
+    private String driver;
 
     /**
      * 目的地
