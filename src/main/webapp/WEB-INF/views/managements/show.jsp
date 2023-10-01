@@ -44,7 +44,7 @@
             </tbody>
         </table>
 
-        <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この運行管理を編集する</a>
+        <a href="<c:url value='?action=${actMan}&command=${commEdt}&id=${management.id}' />">この運行管理を編集する</a>
 
 
         <p>
