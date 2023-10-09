@@ -20,26 +20,26 @@
 <select name="${AttributeConst.DRIVER.getValue()}" id="${AttributeConst.DRIVER.getValue()}" >
 <option value="">ドライバーを選択してください</option>
 <c:forEach var="driver" items="${drivers}">
-        <option value="${driver}">${driver}</option>
+        <option value="${management.driver}">${driver}</option>
     </c:forEach>
 </select>
 <br /><br />
 
 <label for="${AttributeConst.MAN_PLACE.getValue()}">目的地</label><br />
-<input type="text"  name="${AttributeConst.MAN_PLACE.getValue()}" id="${AttributeConst.MAN_PLACE.getValue()}" />
+<input type="text"  name="${AttributeConst.MAN_PLACE.getValue()}" id="${AttributeConst.MAN_PLACE.getValue()}" value="${management.place}"/>
 <br /><br />
 
-<fmt:parseDate value="${managemenet.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
+<fmt:parseDate value="${management.goAt}" pattern="yyyy-MM-dd'T'HH:mm" var="goAt" type="date"/>
 <label for="${AttributeConst.MAN_GO.getValue()}">出発時間</label><br />
 <input type="datetime-local" name="${AttributeConst.MAN_GO.getValue()}" id="${AttributeConst.MAN_GO.getValue()}" value="<fmt:formatDate value='${goAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />
 
-<fmt:parseDate value="${managemenet.arriveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="arriveAt" type="date"/>
+<fmt:parseDate value="${management.arriveAt}" pattern="yyyy-MM-dd'T'HH:mm" var="arriveAt" type="date"/>
 <label for="${AttributeConst.MAN_ARRIVE.getValue()}">到着時間</label><br />
 <input type="datetime-local" name="${AttributeConst.MAN_ARRIVE.getValue()}" id="${AttributeConst.MAN_ARRIVE.getValue()}" value="<fmt:formatDate value='${arriveAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />
 
-<fmt:parseDate value="${managemenet.backAt}" pattern="yyyy-MM-dd'T'HH:mm" var="backAt" type="date"/>
+<fmt:parseDate value="${management.backAt}" pattern="yyyy-MM-dd'T'HH:mm" var="backAt" type="date"/>
 <label for="${AttributeConst.MAN_BACK.getValue()}">戻り時間</label><br />
 <input type="datetime-local" name="${AttributeConst.MAN_BACK.getValue()}" id="${AttributeConst.MAN_BACK.getValue()}" value="<fmt:formatDate value='${backAt}' pattern='yyyy-MM-dd\'T\'HH:mm' />" />
 <br /><br />

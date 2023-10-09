@@ -72,10 +72,7 @@ public class ManagementAction extends ActionBase{
     public void entryNew() throws ServletException, IOException {
 
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-
-        //日報情報の空インスタンスに、日報の日付＝今日の日付を設定する
-        ManagementView mv = new ManagementView();
-        putRequestScope(AttributeConst.MANAGEMENT, mv); //日付のみ設定済みの日報インスタンス
+        putRequestScope(AttributeConst.MANAGEMENT,new ManagementView());//空の運行管理インスタンス
         List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
         putRequestScope(AttributeConst.DRIVERS,driverNames);
         //新規登録画面を表示
@@ -96,34 +93,38 @@ public class ManagementAction extends ActionBase{
            //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-          //出発時間の設定
+            LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);  // 2000-01-01T00:00
+
+           //出発時間の設定
             LocalDateTime go=null;
-            if(getRequestParam(AttributeConst.MAN_GO)==null
-                ||getRequestParam(AttributeConst.MAN_GO).equals("")){
+            if(getRequestParam(AttributeConst.MAN_GO) == null ||
+                    getRequestParam(AttributeConst.MAN_GO).equals("")) {
+                go = defaultDateTime;
             }else {
-                go =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_GO));
+            go =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_GO));
             }
-
-          //到着時間の設定
+           //到着時間の設定
             LocalDateTime arrive=null;
-            if(getRequestParam(AttributeConst.MAN_ARRIVE)==null
-                ||getRequestParam(AttributeConst.MAN_ARRIVE).equals("")){
+            if(getRequestParam(AttributeConst.MAN_ARRIVE) == null||
+                    getRequestParam(AttributeConst.MAN_ARRIVE).equals("")) {
+                arrive =defaultDateTime;
             }else {
-                arrive =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_ARRIVE));
+            arrive =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_ARRIVE));
             }
 
-          //戻り時間の設定
+           //戻り時間の設定
             LocalDateTime back=null;
-            if(getRequestParam(AttributeConst.MAN_BACK)==null
-                ||getRequestParam(AttributeConst.MAN_BACK).equals("")){
+            if(getRequestParam(AttributeConst.MAN_BACK) == null ||
+                    getRequestParam(AttributeConst.MAN_BACK).equals("")) {
+                back = defaultDateTime;
             }else {
-                back =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_BACK));
+            back =LocalDateTime.parse(getRequestParam(AttributeConst.MAN_BACK));
             }
 
-            //パラメータの値をもとに日報情報のインスタンスを作成する
+            //パラメータの値をもとに運行管理情報のインスタンスを作成する
             ManagementView mv = new ManagementView(
                     null,
-                    ev, //ログインしている従業員を、日報作成者として登録する
+                    ev, //ログインしている従業員を、運行管理作成者として登録する
                     getRequestParam(AttributeConst.DRIVER),
                     getRequestParam(AttributeConst.MAN_PLACE),
                     go,
@@ -133,14 +134,36 @@ public class ManagementAction extends ActionBase{
                     null,
                     ev);
 
-            //日報情報登録
+            //運行管理情報登録
             List<String> errors = service.create(ev,mv);
 
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
 
+                if(go.equals(defaultDateTime)) {
+                    go=null;
+                }
+                if(arrive.equals(defaultDateTime)) {
+                    arrive=null;
+                }
+                if(back.equals(defaultDateTime)) {
+                    back=null;
+                }
+
+                ManagementView mv2 = new ManagementView(
+                        null,
+                        ev, //ログインしている従業員を、運行管理作成者として登録する
+                        getRequestParam(AttributeConst.DRIVER),
+                        getRequestParam(AttributeConst.MAN_PLACE),
+                        go,
+                        arrive,
+                        back,
+                        null,
+                        null,
+                        ev);
+
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.MANAGEMENT, mv);//入力された日報情報
+                putRequestScope(AttributeConst.MANAGEMENT, mv2);//入力された運行管理情報
                 List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
                 putRequestScope(AttributeConst.DRIVERS,driverNames);
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
@@ -167,16 +190,16 @@ public class ManagementAction extends ActionBase{
      */
     public void show() throws ServletException, IOException {
 
-        //idを条件に日報データを取得する
+        //idを条件に運行管理データを取得する
         ManagementView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MAN_ID)));
 
         if (mv == null) {
-            //該当の日報データが存在しない場合はエラー画面を表示
+            //該当の運行管理データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
 
-            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した日報データ
+            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した運行管理データ
 
             //詳細画面を表示
             forward(ForwardConst.FW_MAN_SHOW);
@@ -190,22 +213,74 @@ public class ManagementAction extends ActionBase{
      */
     public void edit() throws ServletException, IOException {
 
-        //idを条件に日報データを取得する
+        //idを条件に運行管理データを取得する
         ManagementView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MAN_ID)));
 
         if (mv == null) {
-            //該当の日報データが存在しない場合はエラー画面を表示
+            //該当の運行管理データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
 
             putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した日報データ
+            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した運行管理データ
+            List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
+            putRequestScope(AttributeConst.DRIVERS,driverNames);
 
             //編集画面を表示
             forward(ForwardConst.FW_MAN_EDIT);
         }
 
+    }
+
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void update() throws ServletException, IOException {
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) {
+
+            //idを条件に運行管理データを取得する
+            ManagementView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MAN_ID)));
+
+            //セッションからログイン中の従業員情報を取得
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+            //入力された運行管理内容を設定する
+            mv.setDriver(getRequestParam(AttributeConst.MAN_DRIVER));
+            mv.setPlace(getRequestParam(AttributeConst.MAN_PLACE));
+            mv.setGoAt(toLocalDateTime(getRequestParam(AttributeConst.MAN_GO)));
+            mv.setArriveAt(toLocalDateTime(getRequestParam(AttributeConst.MAN_ARRIVE)));
+            mv.setBackAt(toLocalDateTime(getRequestParam(AttributeConst.MAN_BACK)));
+
+            //運行管理データを更新する
+            List<String> errors = service.update(ev,mv);
+
+            if (errors.size() > 0) {
+                //更新中にエラーが発生した場合
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.MANAGEMENT, mv); //入力された運行管理情報
+                List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
+                putRequestScope(AttributeConst.DRIVERS,driverNames);
+                putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+
+                //編集画面を再表示
+                forward(ForwardConst.FW_MAN_EDIT);
+            } else {
+                //更新中にエラーがなかった場合
+
+                //セッションに更新完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_MAN, ForwardConst.CMD_INDEX);
+
+            }
+        }
     }
 
 }

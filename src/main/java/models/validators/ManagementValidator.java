@@ -60,6 +60,12 @@ public class ManagementValidator {
             errors.add(slowGoBackError);
         }
 
+        //同じ時間が入力されていないかチェック
+        String sameError=validateSame(mv.getGoAt(),mv.getArriveAt(),mv.getBackAt());
+        if(!sameError.equals("")) {
+            errors.add(sameError);
+        }
+
         return errors;
 
     }
@@ -98,9 +104,15 @@ public class ManagementValidator {
      * 出発時間が到着時間より遅くないかをチェックし、遅ければエラーメッセージを返却
      */
     private static String validateSlowGo(LocalDateTime goAt,LocalDateTime arriveAt) {
-        if(goAt!=null && arriveAt!=null && goAt.isAfter(arriveAt)) {
-            return MessageConst.E_SLOW_GO.getMessage();
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if(goAt.equals(defaultDateTime) || arriveAt.equals(defaultDateTime)) {
+            return "";
+        }else {
+            if(goAt!=defaultDateTime && arriveAt!=defaultDateTime && goAt.isAfter(arriveAt)) {
+                return MessageConst.E_SLOW_GO.getMessage();
+            }
         }
+
         return "";
     }
 
@@ -108,9 +120,15 @@ public class ManagementValidator {
      * 到着時間が戻り時間より遅くないかをチェックし、遅ければエラーメッセージを返却
      */
     private static String validateSlowArrive(LocalDateTime arriveAt,LocalDateTime backAt) {
-        if(arriveAt!=null && backAt!=null && arriveAt.isAfter(backAt)) {
-            return MessageConst.E_SLOW_ARRIVE.getMessage();
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if(arriveAt.equals(defaultDateTime) || backAt.equals(defaultDateTime)) {
+            return "";
+        }else {
+            if(arriveAt!=defaultDateTime && backAt!=defaultDateTime && arriveAt.isAfter(backAt)) {
+                return MessageConst.E_SLOW_ARRIVE.getMessage();
+            }
         }
+
         return "";
     }
 
@@ -118,9 +136,15 @@ public class ManagementValidator {
      * 出発時間が戻り時間より遅くないかをチェックし、遅ければエラーメッセージを返却
      */
     private static String validateSlowGoBack(LocalDateTime goAt,LocalDateTime backAt) {
-        if(goAt!=null && backAt!=null && goAt.isAfter(backAt)) {
-            return MessageConst.E_SLOW_GO_BACK.getMessage();
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if(goAt.equals(defaultDateTime) || backAt.equals(defaultDateTime)) {
+            return "";
+        }else {
+            if(goAt!=defaultDateTime && backAt!=defaultDateTime && goAt.isAfter(backAt)) {
+                return MessageConst.E_SLOW_GO_BACK.getMessage();
+            }
         }
+
         return "";
     }
 
@@ -131,8 +155,8 @@ public class ManagementValidator {
      * @return エラーメッセージ
      */
     private static String validateGoAt(LocalDateTime goAt){
-
-        if (goAt == null) {
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if (goAt.equals(defaultDateTime)) {
          return MessageConst.E_NOGOAT.getMessage();
         }
         return "";
@@ -143,7 +167,8 @@ public class ManagementValidator {
      * @return エラーメッセージ
      */
     private static String validateArriveAt(LocalDateTime arriveAt){
-        if (arriveAt==null){
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if (arriveAt.equals(defaultDateTime)){
             return MessageConst.E_NOARRIVEAT.getMessage();
         }
         return "";
@@ -155,10 +180,32 @@ public class ManagementValidator {
      * @return エラーメッセージ
      */
     private static String validateBackAt(LocalDateTime backAt) {
-        if(backAt==null) {
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if(backAt.equals(defaultDateTime)) {
             return MessageConst.E_NOBACKAT.getMessage();
         }
         return "";
+    }
+
+    /**
+     * 入力値が同じであるか比較し、同じであればエラーメッセージを返却
+     * @param goAt 出勤時間
+     * @param arriveAt 到着時間
+     * @param backAt 戻り時間
+     * @return エラーメッセージ
+     */
+    private static String validateSame(LocalDateTime goAt,LocalDateTime arriveAt,LocalDateTime backAt) {
+        LocalDateTime defaultDateTime = LocalDateTime.of(2000, 1, 1, 0, 0);
+        if(goAt.equals(defaultDateTime) || arriveAt.equals(defaultDateTime) || backAt.equals(defaultDateTime)) {
+            return "";
+        }else {
+            if(goAt.equals(arriveAt) || arriveAt.equals(backAt) || goAt.equals(backAt)){
+                return MessageConst.E_SAME_TIME.getMessage();
+            }
+
+        return "";
+        }
+
     }
 
 }

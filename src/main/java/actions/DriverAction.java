@@ -102,11 +102,11 @@ public class DriverAction  extends ActionBase{
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.EMPLOYEE, dv); //入力されたドライバー情報
+                putRequestScope(AttributeConst.DRIVER, dv); //入力されたドライバー情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //新規登録画面を再表示
-                forward(ForwardConst.FW_EMP_NEW);
+                forward(ForwardConst.FW_DRI_NEW);
 
             } else {
                 //登録中にエラーがなかった場合
