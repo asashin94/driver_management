@@ -163,9 +163,9 @@ public class ManagementAction extends ActionBase{
                         ev);
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.MANAGEMENT, mv2);//入力された運行管理情報
                 List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
                 putRequestScope(AttributeConst.DRIVERS,driverNames);
+                putRequestScope(AttributeConst.MANAGEMENT, mv2);//入力された運行管理情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -223,9 +223,9 @@ public class ManagementAction extends ActionBase{
         } else {
 
             putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した運行管理データ
             List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
             putRequestScope(AttributeConst.DRIVERS,driverNames);
+            putRequestScope(AttributeConst.MANAGEMENT, mv); //取得した運行管理データ
 
             //編集画面を表示
             forward(ForwardConst.FW_MAN_EDIT);
@@ -263,9 +263,9 @@ public class ManagementAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.MANAGEMENT, mv); //入力された運行管理情報
                 List<String> driverNames = service.driverNames(); //ドライバーのプルリスト
                 putRequestScope(AttributeConst.DRIVERS,driverNames);
+                putRequestScope(AttributeConst.MANAGEMENT, mv); //入力された運行管理情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示

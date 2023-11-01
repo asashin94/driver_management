@@ -56,6 +56,5 @@
             </c:forEach>
         </div>
         <p><a href="<c:url value='?action=${actMan}&command=${commNew}' />">新規運行管理の登録</a></p>
-
     </c:param>
 </c:import>
